@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'registration',
     #my apps
-    'users',
+    
 ]
 
 MIDDLEWARE = [
@@ -149,3 +149,4 @@ LOGIN_REDIRECT_URL = '/'  # The page you want users to arrive at after they succ
 LOGIN_URL = '/accounts/login/'  # The page users are directed to if they are not logged in,
 
 # AUTH_USER_MODEL = 'users.User'
+EMAIL_HOST = "172.30.208.230"
