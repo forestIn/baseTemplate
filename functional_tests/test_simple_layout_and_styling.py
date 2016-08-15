@@ -9,9 +9,9 @@ class LayoutAndStylingTest(FunctionalTest):
         self.browser.set_window_size(1024, 768)
 
         # She notices the input box is nicely centered
-        navbar = self.get_navbar_brand()
-        self.assertAlmostEqual(
-            navbar.location['x'] + navbar.size['width'] / 2,
-            512,
-            delta=5
-        )
+        # navbar = self.get_navbar_brand()
+        # self.assertAlmostEqual(
+        #     navbar.location['x'] + navbar.size['width'] / 2,
+        #     512,
+        #     delta=5
+        # )
