@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #third party apps
     'crispy_forms',
-    # 'registration',
+    'registration',
     #my apps
     'users',
 ]
@@ -108,9 +108,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
+
+TIME_ZONE = 'Asia/Yakutsk' 
 
 USE_I18N = True
 
@@ -129,3 +131,21 @@ STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_root")
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
+
+
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 3,
+        }
+    },
+]
+
+REGISTRATION_OPEN = True                # If True, users can register
+ACCOUNT_ACTIVATION_DAYS = 7     # One-week activation window; you may, of course, use a different value.
+REGISTRATION_AUTO_LOGIN = True  # If True, the user will be automatically logged in.
+LOGIN_REDIRECT_URL = '/'  # The page you want users to arrive at after they successful log in
+LOGIN_URL = '/accounts/login/'  # The page users are directed to if they are not logged in,
+
+# AUTH_USER_MODEL = 'users.User'
