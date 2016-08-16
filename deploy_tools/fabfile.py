@@ -67,14 +67,20 @@ def _update_database(source_folder):
     ))
 def _install_nginx(source_folder):
     """ Install nginx and copy over our config file """
-    sudo('apt-get install -y nginx')
-    sed('%s/deploy_tools/nginx.template.conf' % (source_folder), "SITENAME", SITENAME)
-    sudo('mv %s/deploy_tools/nginx.template.conf /etc/nginx/sites-available/%s' % (source_folder,SITENAME))
-    sudo("ln -s ../sites-available/%s /etc/nginx/sites-enabled/%s" % (SITENAME,SITENAME))
-    sudo('service nginx start')
+    if not exists("/etc/nginx/sites-available/%s" % (SITENAME)):
+        sudo('apt-get install -y nginx')
+        sed('%s/deploy_tools/nginx.template.conf' % (source_folder), "SITENAME", SITENAME)
+    
+        sudo('mv %s/deploy_tools/nginx.template.conf /etc/nginx/sites-available/%s' % (source_folder,SITENAME))
+
+        sudo("ln -s ../sites-available/%s /etc/nginx/sites-enabled/%s" % (SITENAME,SITENAME))
+        sudo('service nginx start')
+    else:
+        sudo('service nginx reload')
 
 def _add_upstart(source_folder):
-    sed('%s/deploy_tools/gunicorn-upstart.template' % (source_folder), "SITENAME", SITENAME)
-    sudo('mv %s/deploy_tools/gunicorn-upstart.template /etc/init/%s.conf' % (source_folder,SITENAME))
-    sudo('start %s.conf' % (SITENAME))
+    if not exists("/etc/init/%s.conf" % (SITENAME)):
+        sed('%s/deploy_tools/gunicorn-upstart.template' % (source_folder), "SITENAME", SITENAME)
+        sudo('mv %s/deploy_tools/gunicorn-upstart.template /etc/init/%s.conf' % (source_folder,SITENAME))
+        sudo('start %s.conf' % (SITENAME))
 
