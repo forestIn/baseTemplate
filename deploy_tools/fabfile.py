@@ -17,6 +17,7 @@ def deploy():
     _update_static_files(source_folder)
     _update_database(source_folder)
     _install_nginx(source_folder)
+    _add_upstart(source_folder)
 
 
 def _create_directory_structure_if_necessary(site_folder):
@@ -71,4 +72,9 @@ def _install_nginx(source_folder):
     sudo('mv %s/deploy_tools/nginx.template.conf /etc/nginx/sites-available/%s' % (source_folder,SITENAME))
     sudo("ln -s ../sites-available/%s /etc/nginx/sites-enabled/%s" % (SITENAME,SITENAME))
     sudo('service nginx start')
+
+def _add_upstart(source_folder):
+    sed('%s/deploy_tools/gunicorn-upstart.template' % (source_folder), "SITENAME", SITENAME)
+    sudo('mv %s/deploy_tools/gunicorn-upstart.template /etc/init/%s.conf' % (source_folder,SITENAME))
+    sudo('start %s.conf' % (SITENAME))
 
