@@ -8,7 +8,7 @@ concat = require 'gulp-concat'
 
 
 gulp.task 'stylus', ->
-    gulp.src 'static/stylus/*.styl'
+    gulp.src 'front/stylus/*.styl'
         .pipe stylus set: ['compress']
         .pipe gulp.dest 'static/css'
         # .pipe do connect.reload
@@ -16,7 +16,7 @@ gulp.task 'stylus', ->
 
 
 gulp.task 'coffee', ->
-    gulp.src 'static/coffee/*.coffee'
+    gulp.src 'front/coffee/*.coffee'
         .pipe do coffee
         # .pipe ngAnnotate()
         # .pipe concat 'all.js'
@@ -26,7 +26,7 @@ gulp.task 'coffee', ->
 
 gulp.task 'watch', ->
     # gulp.watch 'dist/*.html', ['html']
-    gulp.watch 'static/stylus/*.styl', ['stylus']
-    gulp.watch 'static/coffee/*.coffee', ['coffee']
+    gulp.watch 'front/stylus/*.styl', ['stylus']
+    gulp.watch 'front/coffee/*.coffee', ['coffee']
 
 gulp.task 'default', ['coffee', 'stylus','watch']
