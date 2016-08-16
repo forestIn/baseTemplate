@@ -78,9 +78,8 @@ def _install_nginx(source_folder):
     else:
         sudo('service nginx reload')
 
-def _add_upstart(source_folder):
-    if not exists("/etc/init/%s.conf" % (SITENAME)):
-        sed('%s/deploy_tools/gunicorn-upstart.template' % (source_folder), "SITENAME", SITENAME)
-        sudo('mv %s/deploy_tools/gunicorn-upstart.template /etc/init/%s.conf' % (source_folder,SITENAME))
-        sudo('start %s' % (SITENAME))
+def _add_upstart(source_folder):    
+    sed('%s/deploy_tools/gunicorn-upstart.template' % (source_folder), "SITENAME", SITENAME)
+    sudo('cp %s/deploy_tools/gunicorn-upstart.template /etc/init/%s.conf' % (source_folder,SITENAME))
+    sudo('start %s' % (SITENAME))
 
