@@ -5,9 +5,10 @@ import random
 
 REPO_URL = 'https://github.com/forestIn/baseTemplate.git'  #1
 NAME_APP = 'template'
+SITENAME = "baseTempalate.local"
 
 def deploy():
-    site_folder = '/home/%s/sites/%s' % (env.user, env.host)
+    site_folder = '/home/%s/sites/%s' % (env.user, SITENAME)
     source_folder = site_folder + '/source'
     _create_directory_structure_if_necessary(site_folder)
     _get_latest_source(source_folder)
@@ -62,8 +63,11 @@ def _update_database(source_folder):
     run('cd %s && ../virtualenv/bin/python3 manage.py migrate --noinput' % (
         source_folder,
     ))
-def _install_nginx(source_folder):
+def _install_nginx(source_folder,SITENAME):
     """ Install nginx and copy over our config file """
     sudo('apt-get install -y nginx')
-    
+    put('cd %s/deploy_tools/nginx.template.conf' % (source_folder), '/etc/nginx/sites-available/%s' % (SITENAME))
+    sed("/etc/nginx/sites-available/%s' % (SITENAME)", "SITENAME", SITENAME)
+    sudo("ln -s ../sites-available/%s /etc/nginx/sites-enabled/%s" % (SITENAME,SITENAME))
+    sudo('service nginx start')
 
