@@ -81,6 +81,6 @@ def _install_nginx(source_folder):
 def _add_upstart(source_folder):    
     sed('%s/deploy_tools/gunicorn-upstart.template' % (source_folder), "SITENAME", SITENAME)
     sed('%s/deploy_tools/gunicorn-upstart.template' % (source_folder), "NAME_APP", NAME_APP)
-    NAME_APP    sudo('cp %s/deploy_tools/gunicorn-upstart.template /etc/init/%s.conf' % (source_folder,SITENAME))
+    sudo('cp %s/deploy_tools/gunicorn-upstart.template /etc/init/%s.conf' % (source_folder,SITENAME))
     sudo('start %s' % (SITENAME))
 
