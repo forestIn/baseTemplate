@@ -69,8 +69,10 @@ def _install_nginx(source_folder):
     """ Install nginx and copy over our config file """
     if not exists("/etc/nginx/sites-available/%s" % (SITENAME)):
         sudo('apt-get install -y nginx')
+        sudo('rm -r /etc/nginx/sites-available/default')
+        sudo('rm -r /etc/nginx/sites-enabled/default')
         sed('%s/deploy_tools/nginx.template.conf' % (source_folder), "SITENAME", SITENAME)
-    
+        
         sudo('mv %s/deploy_tools/nginx.template.conf /etc/nginx/sites-available/%s' % (source_folder,SITENAME))
 
         sudo("ln -s ../sites-available/%s /etc/nginx/sites-enabled/%s" % (SITENAME,SITENAME))
