@@ -5,7 +5,7 @@ import random
 
 REPO_URL = 'https://github.com/forestIn/baseTemplate.git'  #1
 NAME_APP = 'template'
-SITENAME = "baseTempalate.local"
+SITENAME = "baseTemplate.local"
 
 def deploy():
     site_folder = '/home/%s/sites/%s' % (env.user, SITENAME)
@@ -49,7 +49,7 @@ def _update_virtualenv(source_folder):
     virtualenv_folder = source_folder + '/../virtualenv'
     if not exists(virtualenv_folder + '/bin/pip'):
         run('virtualenv --python=python3 %s' % (virtualenv_folder,))
-    run('%s/bin/pip install -r %s/requirements/development.txt' % (
+    run('%s/bin/pip install -r %s/requirements/production.txt' % (
             virtualenv_folder, source_folder
     ))
 
