@@ -16,6 +16,7 @@ def deploy():
     _update_virtualenv(source_folder)
     _update_static_files(source_folder)
     _update_database(source_folder)
+    _install_nginx(source_folder)
 
 
 def _create_directory_structure_if_necessary(site_folder):
@@ -48,7 +49,7 @@ def _update_virtualenv(source_folder):
     virtualenv_folder = source_folder + '/../virtualenv'
     if not exists(virtualenv_folder + '/bin/pip'):
         run('virtualenv --python=python3 %s' % (virtualenv_folder,))
-    run('%s/bin/pip install -r %s/requirements.txt' % (
+    run('%s/bin/pip install -r %s/requirements/development.txt' % (
             virtualenv_folder, source_folder
     ))
 
@@ -63,7 +64,7 @@ def _update_database(source_folder):
     run('cd %s && ../virtualenv/bin/python3 manage.py migrate --noinput' % (
         source_folder,
     ))
-def _install_nginx(source_folder,SITENAME):
+def _install_nginx(source_folder):
     """ Install nginx and copy over our config file """
     sudo('apt-get install -y nginx')
     put('cd %s/deploy_tools/nginx.template.conf' % (source_folder), '/etc/nginx/sites-available/%s' % (SITENAME))
