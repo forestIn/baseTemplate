@@ -3,7 +3,7 @@ from fabric.api import env, local, run, sudo, put
 import random
 
 
-REPO_URL = 'https://github.com/forestIn/baseTemplate.git'  #1
+REPO_URL = 'https://github.com/forestIn/baseTemplate.git'  
 NAME_APP = 'template'
 SITENAME = "base_template.local"
 
@@ -77,7 +77,6 @@ def _install_nginx(source_folder):
 
         sudo("ln -s ../sites-available/%s /etc/nginx/sites-enabled/%s" % (SITENAME,SITENAME))
         sudo('service nginx start')
-    else:
         sudo('service nginx reload')
 
 def _add_upstart(source_folder):    
