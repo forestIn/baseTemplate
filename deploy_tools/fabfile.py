@@ -5,7 +5,7 @@ import random
 
 REPO_URL = 'https://github.com/forestIn/baseTemplate.git'  #1
 NAME_APP = 'template'
-SITENAME = "baseTemplate.local"
+SITENAME = "base_template.local"
 
 def deploy():
     site_folder = '/home/%s/sites/%s' % (env.user, SITENAME)
