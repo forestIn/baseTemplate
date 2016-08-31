@@ -5,7 +5,7 @@ import random
 #fab deploy:host=stri@192.168.56.101
 
 REPO_URL = 'https://github.com/forestIn/baseTemplate.git'  
-NAME_APP = 'template'
+NAME_APP = 'base_template'
 SITENAME = "base_template.local"
 
 def deploy():
