@@ -1,7 +1,8 @@
 from fabric.contrib.files import append, exists, sed
 from fabric.api import env, local, run, sudo, put
 import random
-
+#run
+#fab deploy:host=stri@192.168.56.101
 
 REPO_URL = 'https://github.com/forestIn/baseTemplate.git'  
 NAME_APP = 'template'
@@ -75,8 +76,7 @@ def _install_nginx(source_folder):
         
         sudo('mv %s/deploy_tools/nginx.template.conf /etc/nginx/sites-available/%s' % (source_folder,SITENAME))
 
-        sudo("ln -s ../sites-available/%s /etc/nginx/sites-enabled/%s" % (SITENAME,SITENAME))
-        sudo('service nginx start')
+        sudo("ln -s ../sites-available/%s /etc/nginx/sites-enabled/%s" % (SITENAME,SITENAME))        
         sudo('service nginx reload')
 
 def _add_upstart(source_folder):    
